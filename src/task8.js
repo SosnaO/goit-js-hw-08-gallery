@@ -1,28 +1,26 @@
 import images from './gallery-items.js';
 //const gallery=document.querySelector()
-
+//console.log(createGalleryItemMarkup(images));
 
 function createGalleryItemMarkup(images) {
-  const markup = images.map(image => {
+    return images.map(({ preview, original, description }) => {
    return `
   <li class="gallery__item">
   <a
     class="gallery__link"
-    href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
+    href="${original}"
   >
     <img
       class="gallery__image"
-      src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-      data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-      alt="Tulips"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
     />
   </a>
 </li>
-    
-  `;
-  });
-  console.log(images);
-};
+      `;
+  }).join('');
+ 
+}
 
 console.log(createGalleryItemMarkup(images));
-
