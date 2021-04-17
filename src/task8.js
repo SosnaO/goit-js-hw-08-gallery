@@ -4,12 +4,16 @@ const openModalBtn = document.querySelector('.js-lightbox');
 const lightboxImageEl = openModalBtn.querySelector('.lightbox__image');
 const closeModalBtn = document.querySelector('[data-action="close-lightbox"]')
 
+const lightboxOverlay = openModalBtn.querySelector('.lightbox__overlay');
+lightboxOverlay.addEventListener('click', onLightboxOverlay);
+
 gallery.addEventListener('click', onOpenModal);
 closeModalBtn.addEventListener('click', onCloseModal);
 
 const cardsMarkup = createGalleryItemMarkup(images);
 gallery.insertAdjacentHTML('beforeend', cardsMarkup);
 
+window.addEventListener('keydown',onEscKeydown)
 
 function createGalleryItemMarkup(images) {
     return images.map(({ preview, original, description }) => {
@@ -41,5 +45,12 @@ function onOpenModal(event) {
 function onCloseModal() {
   openModalBtn.classList.remove('is-open');
   lightboxImageEl.src = '';
- }
 
+ }
+function onLightboxOverlay() {
+  onCloseModal();
+}
+
+function onEscKeydown() {
+  onCloseModal();
+}
