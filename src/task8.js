@@ -1,9 +1,14 @@
 import images from './gallery-items.js';
-const gallery=document.querySelector('.js-gallery')
+const gallery = document.querySelector('.js-gallery');
+const openModalBtn = document.querySelector('.js-lightbox');
+const lightboxImageEl = openModalBtn.querySelector('.lightbox__image');
+const closeModalBtn = document.querySelector('[data-action="close-lightbox"]')
+
+gallery.addEventListener('click', onOpenModal);
+closeModalBtn.addEventListener('click', onCloseModal);
+
 const cardsMarkup = createGalleryItemMarkup(images);
 gallery.insertAdjacentHTML('beforeend', cardsMarkup);
-
-gallery.addEventListener('click', onGalleryClick);
 
 
 function createGalleryItemMarkup(images) {
@@ -27,14 +32,14 @@ function createGalleryItemMarkup(images) {
  
 }
 
-function onGalleryClick(event) {
-    const isUrlLargeImage = event.target.classList.contains('gallery__link')
-    
-
-
-console.log(event.target.dataset.source);
+function onOpenModal(event) {
+  event.preventDefault('');
+  openModalBtn.classList.add('is-open');
+  lightboxImageEl.src = event.target.dataset.source;
 }
 
+function onCloseModal() {
+  openModalBtn.classList.remove('is-open');
+  lightboxImageEl.src = '';
+ }
 
-
-console.log(createGalleryItemMarkup(images));
