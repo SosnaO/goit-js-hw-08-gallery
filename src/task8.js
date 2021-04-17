@@ -7,13 +7,13 @@ const closeModalBtn = document.querySelector('[data-action="close-lightbox"]')
 const lightboxOverlay = openModalBtn.querySelector('.lightbox__overlay');
 lightboxOverlay.addEventListener('click', onLightboxOverlay);
 
+const imagesSrc = [];
+
 gallery.addEventListener('click', onOpenModal);
 closeModalBtn.addEventListener('click', onCloseModal);
 
 const cardsMarkup = createGalleryItemMarkup(images);
 gallery.insertAdjacentHTML('beforeend', cardsMarkup);
-
-window.addEventListener('keydown',onEscKeydown)
 
 function createGalleryItemMarkup(images) {
     return images.map(({ preview, original, description }) => {
@@ -40,17 +40,21 @@ function onOpenModal(event) {
   event.preventDefault('');
   openModalBtn.classList.add('is-open');
   lightboxImageEl.src = event.target.dataset.source;
+  window.addEventListener('keydown', onEscKeydown);
 }
 
 function onCloseModal() {
   openModalBtn.classList.remove('is-open');
   lightboxImageEl.src = '';
+  window.removeEventListener('keydown',onEscKeydown)
 
  }
 function onLightboxOverlay() {
   onCloseModal();
 }
 
-function onEscKeydown() {
-  onCloseModal();
-}
+function onEscKeydown(event) {
+  if (event.code === 'Escape'){
+    onCloseModal();
+  }
+ }
